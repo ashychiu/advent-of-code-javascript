@@ -51,4 +51,37 @@ function outcomeScore(array) {
 
 const totalScore = shapeSelectedScore(strategyArr) + outcomeScore(strategyArr);
 
-console.log("Total Score", totalScore);
+console.log("Part 1 Total Score", totalScore);
+//Time complexity: O(n)
+//Space complexity: constant
+
+/* ---------- Part 2 ----------- */
+
+// A: Rock       //selectionScore: 1
+// B: Paper     //selectionScore: 2
+// C: Scissors  //selectionScore: 3
+
+// X: to lose   // outcomeScore: 0
+// Y: in draw   // outcomeScore:  3
+// Z: to win    // outcomeScore:  6
+
+const howItEndsScoreChart = {
+  A: { X: 0 + 3, Y: 3 + 1, Z: 6 + 2 },
+  B: { X: 0 + 1, Y: 3 + 2, Z: 6 + 3 },
+  C: { X: 0 + 2, Y: 3 + 3, Z: 6 + 1 },
+};
+
+function howItEndsScore(array) {
+  let score = 0;
+  for (let i = 0; i < array.length; i++) {
+    const opp = array[i][0];
+    const player = array[i][2];
+    let outcomeOfEachRound = howItEndsScoreChart[opp][player];
+    score += outcomeOfEachRound;
+  }
+  return score;
+}
+
+console.log("Part 2 Score", howItEndsScore(strategyArr));
+//Time complexity: O(n)
+//Space complexity: constant
