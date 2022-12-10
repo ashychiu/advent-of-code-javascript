@@ -40,3 +40,49 @@ console.log(prioritySum(rucksackArr));
 //Answer: 7763
 //Time complexity: O(n^2)
 //Space complexity: constant
+
+/* ---------- Part 2 ----------- */
+
+//Pseduo code
+//Iterate through the array
+//group them in arrays, each has 3 rucksacks
+//iterrate through subArray
+//find out which letter is common in all three rucksack
+//push into commonItemArray
+//calculate the priority score with the same way in part 1
+
+const grouppedArray = [];
+function splitIntoThrees(array) {
+  for (let i = 0; i < array.length; i += 3) {
+    grouppedArray.push(array.slice(i, i + 3));
+  }
+  return grouppedArray;
+}
+splitIntoThrees(rucksackArr);
+
+function badgeSum(array) {
+  const commonItem = [];
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array[i][0].length; j++) {
+      if (
+        array[i][1].includes(array[i][0][j]) &&
+        array[i][2].includes(array[i][0][j])
+      ) {
+        commonItem[i] = array[i][0][j]; // to avoid duplicates, only one common item in each rucksack
+      }
+    }
+  }
+  // calculate the sum
+  let sum = 0;
+  for (let i = 0; i < commonItem.length; i++) {
+    const char = commonItem[i];
+    const score = lookup.indexOf(char) + 1;
+    sum += score;
+  }
+  return sum;
+}
+
+console.log(badgeSum(grouppedArray));
+//Answer: 2569
+//Time complexity: O(n^2)
+//Space complexity: constant
